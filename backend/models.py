@@ -4,7 +4,7 @@ from typing import List, Optional
 class KSA(BaseModel):
     id: str
     description: str
-    type: str
+    type: str # Knowledge, Skill, or Ability
 
 class Task(BaseModel):
     id: str
@@ -17,16 +17,16 @@ class WorkRole(BaseModel):
     tasks: List[str] = []
     ksas: List[str] = []
 
-class Candidate(BaseModel):
+class Operative(BaseModel):
     id: Optional[int] = None
-    name: str
+    alias: str
     email: str
-    applied_role_id: str
-    skills_assessment: List[dict] = []
+    assigned_mission_id: Optional[str] = None
+    competency_profile: List[dict] = [] # List of {ksa_id: score}
 
-class JobPosting(BaseModel):
+class Mission(BaseModel):
     id: Optional[int] = None
-    title: str
+    codename: str
     work_role_id: str
-    description: str
+    objective: str
     requirements: List[str] = []

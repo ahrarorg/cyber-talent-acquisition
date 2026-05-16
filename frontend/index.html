@@ -3,45 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Talent Acquisition Dashboard</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Hacker Recruitment Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        body { padding-top: 2rem; }
-        .card { margin-bottom: 1.5rem; }
+        :root {
+            --bg-color: #050505;
+            --accent-color: #00ff41;
+            --secondary-bg: #1a1a1a;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'JetBrains Mono', monospace;
+            margin: 0;
+            padding: 2rem;
+        }
+        header {
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        h1, h2 { color: var(--accent-color); }
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+        .card {
+            background: var(--secondary-bg);
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--accent-color);
+        }
+        .role-id { color: #888; font-size: 0.8rem; }
+        .btn {
+            background: transparent;
+            border: 1px solid var(--accent-color);
+            color: var(--accent-color);
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background: var(--accent-color);
+            color: var(--bg-color);
+        }
+        input, select {
+            width: 100%;
+            padding: 0.8rem;
+            background: #111;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            font-family: inherit;
+            margin-bottom: 1rem;
+        }
+        .status-active { color: var(--accent-color); font-weight: bold; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header class="pb-3 mb-4 border-bottom">
-            <span class="fs-4">Cyber Talent Acquisition - NICE Framework Alignment</span>
-        </header>
-        <div class="row">
-            <div class="col-md-6">
-                <h2>Available Work Roles</h2>
-                <div id="work-roles-list"></div>
-            </div>
-            <div class="col-md-6">
-                <h2>Recent Candidates</h2>
-                <div id="candidates-list"></div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-12">
-                <h2>Post a New Job</h2>
-                <form id="job-form">
-                    <div class="mb-3">
-                        <label for="job-title" class="form-label">Job Title</label>
-                        <input type="text" class="form-control" id="job-title" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="work-role-select" class="form-label">NICE Work Role</label>
-                        <select class="form-select" id="work-role-select"></select>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Create Posting</button>
-                </form>
-            </div>
-        </div>
+    <header>
+        <h1>[ Recruitment Interface ]</h1>
+        <div class="status-active">> SYSTEM: ONLINE | AUTH: VERIFIED</div>
+    </header>
+
+    <div class="grid">
+        <section>
+            <h2>Active Work Roles</h2>
+            <div id="work-roles-list"></div>
+        </section>
+        <section>
+            <h2>Identified Operatives</h2>
+            <div id="operatives-list"></div>
+        </section>
     </div>
+
+    <section style="margin-top: 3rem;">
+        <h2>Initialize New Mission</h2>
+        <div class="card">
+            <form id="mission-form">
+                <label>Mission Codename</label>
+                <input type="text" id="mission-codename" placeholder="e.g. DARK_VOID" required>
+                
+                <label>Assigned Work Role</label>
+                <select id="work-role-select"></select>
+                
+                <button type="submit" class="btn">Deploy Mission</button>
+            </form>
+        </div>
+    </section>
+
     <script src="app.js"></script>
 </body>
 </html>

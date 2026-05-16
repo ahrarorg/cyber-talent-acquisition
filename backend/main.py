@@ -1,9 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
-from .models import WorkRole, Candidate, JobPosting
+from .models import WorkRole, Operative, Mission
 
-app = FastAPI(title="Cyber Talent Acquisition API")
+app = FastAPI(title="Cyber Talent Acquisition API - Hacker Recruitment")
 
 app.add_middleware(
     CORSMiddleware,
@@ -13,51 +13,58 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Mock data
+# NIST NICE Offensive Security Roles
 work_roles = [
     WorkRole(
-        id="OPM-711",
-        name="Cyber Defense Analyst",
-        description="Uses data collected from a variety of cyber defense tools...",
-        tasks=["T0020", "T0023"],
-        ksas=["K0001", "K0002"]
+        id="OPM-541",
+        name="Exploit Developer",
+        description="Identifies, counteracts, and exploits vulnerabilities in systems...",
+        tasks=["T0561", "T0562"],
+        ksas=["K0001", "K0034"]
     ),
     WorkRole(
-        id="OPM-621",
-        name="Software Developer",
-        description="Develops, creates, maintains, and writes computer applications...",
-        tasks=["T0046", "T0171"],
-        ksas=["K0003", "K0004"]
+        id="OPM-511",
+        name="Vulnerability Assessment Analyst",
+        description="Performs assessments of systems and networks...",
+        tasks=["T0028", "T0549"],
+        ksas=["K0002", "K0005"]
+    ),
+    WorkRole(
+        id="OPM-531",
+        name="Red Team Operator",
+        description="Simulates adversary tactics to identify weaknesses...",
+        tasks=["T0550", "T0551"],
+        ksas=["K0003", "K0624"]
     )
 ]
 
-job_postings = []
-candidates = []
+missions = []
+operatives = []
 
 @app.get("/")
 def read_root():
-    return {"message": "Welcome to the Cyber Talent Acquisition API"}
+    return {"message": "System Active. Recruitment Protocol Initialized."}
 
 @app.get("/work-roles", response_model=List[WorkRole])
 def get_work_roles():
     return work_roles
 
-@app.post("/job-postings", response_model=JobPosting)
-def create_job_posting(posting: JobPosting):
-    posting.id = len(job_postings) + 1
-    job_postings.append(posting)
-    return posting
+@app.post("/missions", response_model=Mission)
+def create_mission(mission: Mission):
+    mission.id = len(missions) + 1
+    missions.append(mission)
+    return mission
 
-@app.get("/job-postings", response_model=List[JobPosting])
-def get_job_postings():
-    return job_postings
+@app.get("/missions", response_model=List[Mission])
+def get_missions():
+    return missions
 
-@app.post("/candidates", response_model=Candidate)
-def register_candidate(candidate: Candidate):
-    candidate.id = len(candidates) + 1
-    candidates.append(candidate)
-    return candidate
+@app.post("/operatives", response_model=Operative)
+def register_operative(operative: Operative):
+    operative.id = len(operatives) + 1
+    operatives.append(operative)
+    return operative
 
-@app.get("/candidates", response_model=List[Candidate])
-def get_candidates():
-    return candidates
+@app.get("/operatives", response_model=List[Operative])
+def get_operatives():
+    return operatives
