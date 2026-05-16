@@ -1,9 +1,19 @@
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List
 from .models import WorkRole, Candidate, JobPosting
 
 app = FastAPI(title="Cyber Talent Acquisition API")
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# Mock data
 work_roles = [
     WorkRole(
         id="OPM-711",
